@@ -14,33 +14,25 @@ def handle_events():
         elif event.type == SDL_KEYDOWN:
             if event.key == SDLK_RIGHT:
                 isLeft = False
-                running = True
                 Xdir += 1
             elif event.key == SDLK_LEFT:
                 isLeft = True
-                running = True
                 Xdir -= 1
             if event.key == SDLK_UP:
-                running = True
                 Ydir += 1
             elif event.key == SDLK_DOWN:
-                running = True
                 Ydir -= 1
             elif event.key == SDLK_ESCAPE:
                 playing = False
 
         elif event.type == SDL_KEYUP:
             if event.key == SDLK_RIGHT:
-                running = False
                 Xdir -= 1
             elif event.key == SDLK_LEFT:
-                running = False
                 Xdir += 1
             if event.key == SDLK_UP:
-                running = False
                 Ydir -= 1
             elif event.key == SDLK_DOWN:
-                running = False
                 Ydir += 1
     pass
 
@@ -57,9 +49,15 @@ frame_idle = 0
 
 # fill here
 while playing:
+        #캔버스 초기화, 배경 그리기
         clear_canvas()
         ground.draw(400, 300, 800, 600)
-
+        #running 판단
+        if Xdir == 0 and Ydir == 0:
+            running = False
+        else:
+            running = True
+        #좌우판단 후 버퍼에 그리기
         if running:
             if isLeft:
                 character.clip_composite_draw(frame_run * 50, 0, 50, 80, 0, 'h', x, y, 50, 80)
@@ -72,9 +70,10 @@ while playing:
             else:
                 character.clip_draw(frame_idle * 38, 80, 38, 80, x, y, 38, 80)
             frame_idle = (frame_idle + 1) % 6
-
+        #dir에 따라 좌표변환
         x += Xdir * 7
         y += Ydir * 5
+        #그리기 및 이벤트 입력
         update_canvas()
         handle_events()
         delay(0.08)
