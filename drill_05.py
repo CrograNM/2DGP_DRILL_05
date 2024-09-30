@@ -70,9 +70,23 @@ while playing:
             else:
                 character.clip_draw(frame_idle * 38, 80, 38, 80, x, y, 38, 80)
             frame_idle = (frame_idle + 1) % 6
-        #dir에 따라 좌표변환
-        x += Xdir * 7
-        y += Ydir * 5
+        #dir에 따라 좌표변환 -> 캔버스를 벗어나면 이동불가
+        if 20 <= x <= 780:
+            x += Xdir * 7
+        else:
+            if x < 20:
+                x = 20
+            elif x > 780:
+                x = 780
+
+        if 40 <= y <= 560:
+            y += Ydir * 5
+        else:
+            if y < 40:
+                y = 40
+            elif y > 560:
+                y = 560
+
         #그리기 및 이벤트 입력
         update_canvas()
         handle_events()
