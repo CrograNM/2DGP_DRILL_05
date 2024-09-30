@@ -25,7 +25,7 @@ dir = 0
 # fill here
 while running:
     clear_canvas()
-    ground.draw(400, 300) 
+    ground.draw(400, 300, 800, 600)
     character_idle.clip_draw(frame*32, 0, 32, 32, x, 90, 90, 90)
     update_canvas()
     handle_events()
