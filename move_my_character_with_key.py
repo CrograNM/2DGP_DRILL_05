@@ -1,5 +1,5 @@
+# 2021184033 조성욱
 from pico2d import *
-
 
 open_canvas()
 ground = load_image('TUK_GROUND.png')
